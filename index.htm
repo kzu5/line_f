@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>入退室フォーム</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 24px;
+        }
+        form label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; /* paddingを含めて幅を計算 */
+        }
+        form button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1a73e8;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        form button:hover {
+            background-color: #155bb5;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>学習室 入退室フォーム</h1>
+        <form id="logForm">
+            <label for="regId">登録者ID:</label>
+            <input type="text" id="regId" name="regId" required>
+
+            <label for="name">名前:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">電話番号:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="roomId">学習室:</label>
+            <select id="roomId" name="roomId" required>
+                 <option value="">選択してください</option>
+            <option value="A">生涯学習センター</option>
+            <option value="B">創造館</option>
+            <option value="C">アルラ</option>
+            <option value="D">図書館</option>
+            </select>
+
+            <button type="button" onclick="submitLog('入室')">入室</button>
+            <button type="button" onclick="submitLog('退室')">退室</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

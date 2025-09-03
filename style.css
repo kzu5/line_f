@@ -1,0 +1,145 @@
+/* 全体のリセットと基本設定 */
+body {
+    font-family: 'Noto Sans JP', sans-serif; /* Google Fontsで読み込んだフォント */
+    margin: 0;
+    padding: 20px;
+    background-color: #eef2f7; /* 明るい背景色 */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff; /* 白いカード背景 */
+    border-radius: 15px; /* 角丸 */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* 柔らかい影 */
+    padding: 30px;
+    width: 100%;
+    max-width: 400px; /* スマホで見やすい最大幅 */
+    text-align: center;
+}
+
+/* ヘッダー */
+header h1 {
+    color: #4a90e2; /* テーマカラー */
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 i {
+    margin-right: 10px;
+    font-size: 1.5em;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+select {
+    width: calc(100% - 20px); /* 左右のpaddingを考慮 */
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 角丸 */
+    font-size: 1em;
+    transition: all 0.3s ease; /* ホバー時のアニメーション */
+    appearance: none; /* selectのデフォルトスタイルをリセット */
+    background-color: #f9f9f9;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #4a90e2; /* フォーカス時の枠線色 */
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* ボタン */
+.button-group {
+    display: flex; /* ボタンを横並びに */
+    justify-content: space-between; /* 両端に寄せる */
+    gap: 15px; /* ボタン間のスペース */
+    margin-top: 30px;
+}
+
+.btn {
+    flex: 1; /* ボタンが均等な幅になるように */
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px; /* 角丸 */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* 文字色を白に */
+}
+
+.btn i {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+.btn-entry {
+    background-color: #6c5ce7; /* 入室ボタンの色 (パープル系) */
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.btn-entry:hover {
+    background-color: #5a4cb3;
+    transform: translateY(-2px); /* ホバーで少し浮き上がる */
+}
+
+.btn-exit {
+    background-color: #ff6b6b; /* 退室ボタンの色 (レッド系) */
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-exit:hover {
+    background-color: #e05e5e;
+    transform: translateY(-2px);
+}
+
+/* メッセージ表示エリア */
+.message {
+    margin-top: 25px;
+    font-size: 1em;
+    color: #4a90e2; /* メッセージ色 */
+    font-weight: bold;
+}
+
+/* レスポンシブ対応 (さらに小さい画面用) */
+@media (max-width: 480px) {
+    .button-group {
+        flex-direction: column; /* ボタンを縦並びに */
+    }
+    .btn {
+        width: 100%;
+    }
+}
+/* メッセージの色付け (JavaScriptからクラスを付与) */
+.message.success {
+    color: #28a745; /* 成功時の色 */
+}
+
+.message.error {
+    color: #dc3545; /* エラー時の色 */
+}
