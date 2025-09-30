@@ -3,391 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学習室 在室状況ダッシュボード</title>
+    <title>管理者用 在室人数入力</title>
     <style>
-        /* CSS: 全体のデザインとレスポンシブ対応 */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .header {
+        body { 
+            font-family: Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #f0f4f8; 
             text-align: center;
-            margin-bottom: 30px;
-            padding: 10px 0;
-            border-bottom: 3px solid #ddd;
         }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin: 0;
+        h1 { 
+            color: #333; 
         }
-        .update-info {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        .room-grid {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-        .room-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, opacity 0.3s;
-        }
-        .room-card.hidden {
-            display: none;
-        }
-        .room-card.closed {
-            opacity: 0.6;
-            filter: grayscale(80%);
-        }
-        .room-name {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #34495e;
-            margin-bottom: 10px;
-        }
-        .status-line {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .status-icon {
-            font-size: 2em;
-            margin-right: 10px;
-        }
-        .status-text {
-            font-size: 1.1em;
-            font-weight: 500;
-            flex-grow: 1;
-        }
-        .remaining-label {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-bottom: 5px;
-        }
-        .remaining-seats {
-            font-size: 3em;
-            font-weight: 900;
-            line-height: 1;
-        }
-        .remaining-seats span {
-            font-size: 0.4em;
-            font-weight: normal;
-            margin-left: 5px;
-        }
-        /* 混雑度別カラー */
-        .empty { color: #27ae60; }    /* 緑 */
-        .low { color: #f1c40f; }      /* 黄 */
-        .medium { color: #e67e22; }   /* 橙 */
-        .high { color: #d35400; }     /* 濃い橙 */
-        .full { color: #c0392b; }     /* 赤 */
-
-        /* プログレスバー */
-        .progress-container {
-            height: 10px;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            border-radius: 5px;
-            transition: width 0.5s ease-in-out;
-        }
-        .progress-bar.empty { background-color: #2ecc71; }
-        .progress-bar.low { background-color: #f1c40f; }
-        .progress-bar.medium { background-color: #e67e22; }
-        .progress-bar.high, .progress-bar.full { background-color: #e74c3c; }
-
-        .capacity-text {
-            font-size: 0.9em;
-            text-align: right;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        /* 休館日オーバーレイ */
-        .closed-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            color: #c0392b;
+        .btn {
+            padding: 15px 30px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
             font-size: 1.5em;
             font-weight: bold;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* リンクとして中央揃えしやすくする */
         }
-
-        /* フッター */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #bdc3c7;
+        .btn:hover { 
+            background-color: #3b7ad0; 
+        }
+        p { 
+            color: #777; 
+            margin-top: 20px; 
+            font-size: 0.9em;
+        }
+        .warning {
+            color: #d9534f;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>学習室 在室状況</h1>
-        <div class="update-info">
-            最終更新: <span id="last-updated-time">--:--:--</span> (1分ごとに自動更新)
-        </div>
-    </div>
+    <h1>学習室 在室人数 入力画面へ</h1>
+    <p>この画面から、入室・退出ボタンのある管理画面へ移動します。</p>
+
+    <a href="【あなたの入室・退出ボタンGASのURL】" target="_blank" class="btn">
+        入室・退出ボタン画面を開く
+    </a>
     
-    <div class="room-grid">
-        <div class="room-card" id="roomA-card">
-            <div class="closed-overlay" id="roomA-closed-overlay">定休日・休館</div>
-            <div class="room-name">生涯学習センター (A)</div>
-            <div class="status-line">
-                <span class="status-icon" id="roomA-icon"></span>
-                <span class="status-text" id="roomA-status-text"></span>
-            </div>
-            <div class="remaining-label">空席数</div>
-            <div class="remaining-seats" id="roomA-remaining">--<span>席</span></div>
-            <div class="progress-container"><div class="progress-bar" id="roomA-progress" style="width: 0%;"></div></div>
-            <div class="capacity-text">総席数: <span id="roomA-total-capacity">--</span></div>
-        </div>
-
-        <div class="room-card" id="roomB-card">
-            <div class="closed-overlay" id="roomB-closed-overlay">定休日・休館</div>
-            <div class="room-name">創造館 (B)</div>
-            <div class="status-line">
-                <span class="status-icon" id="roomB-icon"></span>
-                <span class="status-text" id="roomB-status-text"></span>
-            </div>
-            <div class="remaining-label">空席数</div>
-            <div class="remaining-seats" id="roomB-remaining">--<span>席</span></div>
-            <div class="progress-container"><div class="progress-bar" id="roomB-progress" style="width: 0%;"></div></div>
-            <div class="capacity-text">総席数: <span id="roomB-total-capacity">--</span></div>
-        </div>
-
-        <div class="room-card" id="roomC-card">
-            <div class="closed-overlay" id="roomC-closed-overlay">定休日・休館</div>
-            <div class="room-name">アルラ (C)</div>
-            <div class="status-line">
-                <span class="status-icon" id="roomC-icon"></span>
-                <span class="status-text" id="roomC-status-text"></span>
-            </div>
-            <div class="remaining-label">空席数</div>
-            <div class="remaining-seats" id="roomC-remaining">--<span>席</span></div>
-            <div class="progress-container"><div class="progress-bar" id="roomC-progress" style="width: 0%;"></div></div>
-            <div class="capacity-text">総席数: <span id="roomC-total-capacity">--</span></div>
-        </div>
-
-        <div class="room-card hidden" id="roomD-card">
-            <div class="closed-overlay" id="roomD-closed-overlay">定休日・休館</div>
-            <div class="room-name">図書館 (D)</div>
-            <div class="status-line">
-                <span class="status-icon" id="roomD-icon"></span>
-                <span class="status-text" id="roomD-status-text"></span>
-            </div>
-            <div class="remaining-label">空席数</div>
-            <div class="remaining-seats" id="roomD-remaining">--<span>席</span></div>
-            <div class="progress-container"><div class="progress-bar" id="roomD-progress" style="width: 0%;"></div></div>
-            <div class="capacity-text">総席数: <span id="roomD-total-capacity">--</span></div>
-        </div>
-    </div>
-    
-    <div class="footer">
-        データはGoogle Apps Scriptを通じて取得されています。
-    </div>
-
-    <script>
-        // ↓↓↓ あなたのGoogle Apps Scriptで発行されたウェブアプリのURLに置き換えてください ↓↓↓
-        // ★★★ doGetApiでデプロイしたURLをここに設定！ ★★★
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbylAL9f-k7mYys3LhPCKAaTq22_uiYZp0qpBFdT5qsTbELBPJFszpgOZ_5ZFvZFRWRO2w/exec'; 
-
-        // 各施設の定休日情報 (JavaScriptのDateオブジェクトでの曜日: 0=日, 1=月, ..., 6=土)
-        const HOLIDAYS = {
-            'A': { dayOfWeek: 1, label: '月曜日' },
-            'B': { dayOfWeek: 2, label: '火曜日' },
-            'C': { dayOfWeek: -1, label: '年末年始' }, 
-            'D': { dayOfWeek: -1, label: '不定期' }
-        };
-
-        /**
-         * 特定の日付が施設の定休日に当たるか判定する
-         */
-        function isHoliday(roomId, date) {
-            const holidayInfo = HOLIDAYS[roomId];
-            if (!holidayInfo) return false;
-
-            const day = date.getDay(); 
-
-            if (holidayInfo.dayOfWeek !== undefined && holidayInfo.dayOfWeek >= 0 && day === holidayInfo.dayOfWeek) {
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * 在室人数と総席数に基づいて表示を更新する関数
-         */
-        function updateRoomDisplay(id, occupants, capacity) {
-            if (typeof occupants !== 'number' || typeof capacity !== 'number' || capacity === 0) {
-                 document.getElementById(`room${id}-remaining`).innerHTML = '--<span>席</span>';
-                 document.getElementById(`room${id}-status-text`).textContent = 'データエラー';
-                 document.getElementById(`room${id}-icon`).textContent = '❓';
-                 document.getElementById(`room${id}-progress`).style.width = '0%';
-                 document.getElementById(`room${id}-total-capacity`).textContent = capacity || '--';
-                 return;
-            }
-
-            const iconEl = document.getElementById(`room${id}-icon`);
-            const remainingEl = document.getElementById(`room${id}-remaining`);
-            const progressEl = document.getElementById(`room${id}-progress`);
-            const statusTextEl = document.getElementById(`room${id}-status-text`);
-            const totalCapacityEl = document.getElementById(`room${id}-total-capacity`);
-
-            const remaining = Math.max(0, capacity - occupants);
-            const occupancyRate = (occupants / capacity) * 100;
-
-            let statusClass;
-            let icon;
-            let statusText;
-
-            if (occupancyRate < 20) {
-                statusClass = 'empty';
-                icon = '🟢';
-                statusText = '空席あり';
-            } else if (occupancyRate < 50) {
-                statusClass = 'low';
-                icon = '🟡';
-                statusText = '利用可能';
-            } else if (occupancyRate < 80) {
-                statusClass = 'medium';
-                icon = '🟠';
-                statusText = '混雑中';
-            } else if (occupancyRate < 100) {
-                statusClass = 'high';
-                icon = '🔴';
-                statusText = '満席に近い';
-            } else {
-                statusClass = 'full';
-                icon = '🔴';
-                statusText = '満席';
-            }
-
-            // CSSクラスとテキストの更新
-            remainingEl.className = `remaining-seats ${statusClass}`;
-            remainingEl.innerHTML = `${remaining}<span>席</span>`;
-            iconEl.className = `status-icon ${statusClass}`;
-            iconEl.textContent = icon;
-            statusTextEl.textContent = statusText;
-            
-            // 総席数の更新
-            totalCapacityEl.textContent = capacity;
-
-            // プログレスバーの更新
-            progressEl.className = `progress-bar ${statusClass}`;
-            progressEl.style.width = `${Math.min(100, occupancyRate)}%`;
-        }
-
-
-        /**
-         * GASからデータを取得し、ダッシュボードを更新するメイン関数
-         */
-        async function fetchRoomStatus() {
-            
-            let roomData = [];
-            try {
-                // GASウェブアプリのURLにアクセスし、スプレッドシートのデータをJSONとして取得
-                const response = await fetch(GAS_URL);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
-                const rawData = await response.json(); 
-                
-                roomData = rawData.map(item => ({
-                    room_id: item.ID, 
-                    current_occupants: parseInt(item.occupants, 10) || 0,
-                    total_capacity: parseInt(item.capacity, 10) || 0
-                }));
-
-            } catch (error) {
-                console.error("データ取得エラー:", error);
-                document.getElementById('last-updated-time').textContent = '取得失敗';
-                return; 
-            }
-            
-            const now = new Date();
-            const rooms = ['A', 'B', 'C', 'D'];
-
-            rooms.forEach(id => {
-                const card = document.getElementById(`room${id}-card`);
-                const overlay = document.getElementById(`room${id}-closed-overlay`);
-                const roomDatum = roomData.find(r => r.room_id === id);
-
-                if (!roomDatum) {
-                    return; 
-                }
-
-                // --- 定休日の判定 ---
-                if (isHoliday(id, now)) {
-                    card.classList.add('closed');
-                    if (overlay) overlay.style.display = 'flex';
-
-                    // 表示内容を休館日仕様に上書き
-                    document.getElementById(`room${id}-remaining`).innerHTML = '--<span>席</span>';
-                    document.getElementById(`room${id}-status-text`).textContent = `定休日: ${HOLIDAYS[id].label}`;
-                    document.getElementById(`room${id}-total-capacity`).textContent = roomDatum.total_capacity || '--';
-                    document.getElementById(`room${id}-icon`).textContent = '❌'; 
-                    
-                    const progressBar = document.getElementById(`room${id}-progress`);
-                    progressBar.style.width = '0%';
-                    progressBar.className = 'progress-bar';
-
-                    return;
-                } 
-                
-                // 定休日ではない場合
-                card.classList.remove('closed');
-                if (overlay) overlay.style.display = 'none';
-
-                // --- 図書館 (D) の表示・非表示判定 ---
-                if (id === 'D') {
-                    const validData = roomDatum.current_occupants >= 0 && roomDatum.total_capacity > 0;
-
-                    if (validData) {
-                        card.classList.remove('hidden'); 
-                        updateRoomDisplay(id, roomDatum.current_occupants, roomDatum.total_capacity);
-                    } else {
-                        card.classList.add('hidden'); 
-                    }
-                    return; 
-                }
-
-                // --- その他学習室 (A, B, C) の在室状況更新 ---
-                if (roomDatum) {
-                    updateRoomDisplay(id, roomDatum.current_occupants, roomDatum.total_capacity);
-                }
-            });
-
-            // 最終更新時刻の更新
-            document.getElementById('last-updated-time').textContent = new Date().toLocaleTimeString('ja-JP');
-        }
-
-        // ページロード時と1分ごとに更新
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchRoomStatus();
-            setInterval(fetchRoomStatus, 60000); // 60秒 (1分) ごとに更新
-        });
-    </script>
+    <p class="warning">※このリンク先はスプレッドシートを操作します。取り扱いに注意してください。</p>
+    <p>※リンク先URLはGASウェブアプリのURLです。</p>
 </body>
 </html>
